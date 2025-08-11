@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class Inventory
 {
     public Vector2Int Size { get; private set; }
     public Dictionary<Vector2Int, Slot> MapSlots { get; private set; }
-    public Dictionary<Vector2Int, IItem> MapItems { get; private set; }
+    public Dictionary<Vector2Int, Item> MapItems { get; private set; }
 
-    public Inventory(Vector2Int size, Dictionary<Vector2Int, IItem> mapItems)
+    public Inventory(Vector2Int size, Dictionary<Vector2Int, Item> mapItems)
     {
         Size = size;
         MapSlots = new();
@@ -34,7 +33,7 @@ public class Inventory
         }
     }
 
-    public bool IsAddItem(Slot slot, IItem item, out List<Vector2Int> listPosSlots)
+    public bool IsAddItem(Slot slot, Item item, out List<Vector2Int> listPosSlots)
     {
         var isAdd = true;
         listPosSlots = new();
@@ -58,7 +57,7 @@ public class Inventory
         return isAdd;
     }
 
-    public bool AddItem(Slot slot, IItem item)
+    public bool AddItem(Slot slot, Item item)
     {
         if (IsAddItem(slot, item, out var listPosSlots) == false)
             return false;

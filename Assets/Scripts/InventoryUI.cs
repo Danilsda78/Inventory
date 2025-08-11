@@ -21,7 +21,7 @@ public class InventoryUI : MonoBehaviour
 
     }
 
-    public void Init(Vector2Int sizeInventory, Dictionary<Vector2Int, IItem> mapItems)
+    public void Init(Vector2Int sizeInventory, Dictionary<Vector2Int, Item> mapItems)
     {
         _inventory = new Inventory(sizeInventory, mapItems);
         _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
@@ -55,7 +55,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void OnItemEnterSlots(IItem item, SlotUI slotUI)
+    private void OnItemEnterSlots(Item item, SlotUI slotUI)
     {
         var isAddItem = _inventory.IsAddItem(slotUI.Slot, item, out var listPosSlots);
 

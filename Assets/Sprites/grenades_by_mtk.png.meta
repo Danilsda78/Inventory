@@ -1,0 +1,266 @@
+fileFormatVersion: 2
+guid: f0479ed6f486a0c48bb96c8e796bbcfa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5569263815511090389
+    second: grenades_by_mtk_0
+  - first:
+      213: 118106650791245875
+    second: grenades_by_mtk_1
+  - first:
+      213: -3915493548921429086
+    second: grenades_by_mtk_2
+  - first:
+      213: -8267361930450695602
+    second: grenades_by_mtk_3
+  - first:
+      213: -5965079132286876903
+    second: grenades_by_mtk_4
+  - first:
+      213: 4581319402248271348
+    second: grenades_by_mtk_5
+  - first:
+      213: 3501165319545837711
+    second: grenades_by_mtk_6
+  - first:
+      213: -8025932642048772888
+    second: grenades_by_mtk_7
+  - first:
+      213: -8236303766579729467
+    second: grenades_by_mtk_8
+  - first:
+      213: -8213797797559002402
+    second: grenades_by_mtk_9
+  - first:
+      213: 4724843616062051392
+    second: grenades_by_mtk_10
+  - first:
+      213: -298759078363205657
+    second: grenades_by_mtk_11
+  - first:
+      213: -3855040979633508318
+    second: grenades_by_mtk_12
+  - first:
+      213: 8744275110164075531
+    second: grenades_by_mtk_13
+  - first:
+      213: -583319393222977545
+    second: grenades_by_mtk_14
+  - first:
+      213: 143304991024768770
+    second: grenades_by_mtk_15
+  - first:
+      213: -1486325344239160524
+    second: grenades_by_mtk_16
+  - first:
+      213: -2336193376176154553
+    second: grenades_by_mtk_17
+  - first:
+      213: 8106013355729086291
+    second: grenades_by_mtk_18
+  - first:
+      213: -1816439753947007983
+    second: grenades_by_mtk_19
+  - first:
+      213: -54330573064344690
+    second: grenades_by_mtk_20
+  - first:
+      213: -2538085021633928071
+    second: grenades_by_mtk_21
+  - first:
+      213: 6465800788034678903
+    second: grenades_by_mtk_22
+  - first:
+      213: 1649171179497312565
+    second: grenades_by_mtk_23
+  - first:
+      213: -5021530213124267140
+    second: grenades_by_mtk_24
+  - first:
+      213: 5196008247746686539
+    second: grenades_by_mtk_25
+  - first:
+      213: -6210268112294444903
+    second: grenades_by_mtk_26
+  - first:
+      213: 3858638404624844626
+    second: grenades_by_mtk_27
+  - first:
+      213: -9036885038166984296
+    second: grenades_by_mtk_28
+  - first:
+      213: 7758443206785273197
+    second: grenades_by_mtk_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: bomb1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 32
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e976cc9ceb84204aa381271efae63fc
+      internalID: 1593822131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb2
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 32
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 360bbe78f76877c46b541ec843d6747b
+      internalID: -672303006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 6faada3d9ad1f6e47901cf8a49b490e7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      bomb1: 1593822131
+      bomb2: -672303006
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -11,7 +11,7 @@ public class SlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
     [SerializeField] private Image _image;
 
     public Slot Slot;
-    public Action<IItem, SlotUI> EOnPointerEnter;
+    public Action<Item, SlotUI> EOnPointerEnter;
     public Action EOnPointerExit;
     public Action<ItemUI, SlotUI> EOnDrop;
 
