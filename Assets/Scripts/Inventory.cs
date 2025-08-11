@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+[Serializable]
+public class Inventory
+{
+    public Vector2Int Size { get; private set; }
+    public Dictionary<Vector2Int, Slot> MapSlots { get; private set; }
+    public Dictionary<Vector2Int, IItem> MapItems { get; private set; }
+
+    public Inventory(Vector2Int size, Dictionary<Vector2Int, IItem> mapItems)
+    {
+        Size = size;
+        MapSlots = new();
+        MapItems = mapItems;
+
+        for (int y = 0; y < Size.y; y++)
+            for (int x = 0; x < Size.x; x++)
+            {
+                var posSlot = new Vector2Int(x, y);
+                var emptySlot = new Slot(posSlot, -1);
+                MapSlots.Add(posSlot, emptySlot);
+            }
+
+        foreach (var keyValue in MapItems)
+        {
+            var item = keyValue.Value;
+            var slot = MapSlots[keyValue.Key];
+            var res = AddItem(slot, item);
+
+            if (!res)
+                throw new Exception("MapItems is greater than MapSlots");
+        }
+    }
+
+    public bool IsAddItem(Slot slot, IItem item, out List<Vector2Int> listPosSlots)
+    {
+        var isAdd = true;
+        listPosSlots = new();
+
+        foreach (var position in item.ListPos)
+        {
+            var currentPosition = slot.Position + position;
+            var isNotNull = MapSlots.ContainsKey(currentPosition);
+
+            if (isNotNull)
+            {
+                listPosSlots.Add(currentPosition);
+                var res = MapSlots[currentPosition].Id == -1 || MapSlots[currentPosition].Id == item.Id;
+                if (!res)
+                    isAdd = false;
+            }
+            else
+                isAdd = false;
+        }
+
+        return isAdd;
+    }
+
+    public bool AddItem(Slot slot, IItem item)
+    {
+        if (IsAddItem(slot, item, out var listPosSlots) == false)
+            return false;
+
+        foreach (var position in listPosSlots)
+        {
+            MapSlots[position] = new Slot(position, item.Id);
+        }
+
+        MapItems.Add(slot.Position, item);
+        item.Slot = slot;
+
+        return true;
+    }
+
+    public bool RemoveItem(Vector2Int itemPos)
+    {
+        var isNotNull = MapItems.ContainsKey(itemPos);
+
+        if (isNotNull)
+        {
+            MapItems.Remove(itemPos);
+
+            var emptySlot = new Slot(itemPos, -1);
+            MapSlots[itemPos] = emptySlot;
+            return true;
+        }
+
+        return false;
+    }
+}
