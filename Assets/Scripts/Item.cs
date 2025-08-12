@@ -1,15 +1,18 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
+[Serializable]
 public class Item
 {
-    public int Id { get; }
-    public Slot Slot { get; set; }
-    public Vector2Int[] ListPos { get; set; }
+    public int Id;
+    public Slot Slot;
+    public float Recharge;
+    public Vector2Int[] ListPos;
     
     public Item(ItemDataInfo info)
     {
         Id = info.Lvl[0].Id;
         ListPos = info.ListPos;
+        Recharge = info.Recharge;
     }
 }

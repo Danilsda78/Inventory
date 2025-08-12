@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Inventory
 {
     public Vector2Int Size { get; private set; }
     public Dictionary<Vector2Int, Slot> MapSlots { get; private set; }
     public Dictionary<Vector2Int, Item> MapItems { get; private set; }
 
-    public Inventory(Vector2Int size, Dictionary<Vector2Int, Item> mapItems)
+    public Inventory(Vector2Int size, Dictionary<Vector2Int, Item> mapItems = null)
     {
+        if (mapItems == null)
+            mapItems = new Dictionary<Vector2Int, Item>();
+
         Size = size;
         MapSlots = new();
         MapItems = mapItems;
@@ -87,5 +91,15 @@ public class Inventory
         }
 
         return false;
+    }
+
+    public List<Item> GetListItems()
+    {
+        var list = new List<Item>();
+
+        foreach (var item in MapItems)
+            list.Add(item.Value);
+
+        return list;
     }
 }
