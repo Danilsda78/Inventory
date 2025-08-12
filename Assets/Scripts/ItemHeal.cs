@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [Serializable]
 public class ItemHeal : MonoBehaviour
 {
-    [SerializeField] private ItemDataInfo _info;
+    [SerializeField] private ItemData _info;
     [SerializeField] private Image _image;
 
     public int CurrenLvl { get; private set; }
@@ -20,7 +20,7 @@ public class ItemHeal : MonoBehaviour
         var res = JsonUtility.ToJson(this);
     }
 
-    public void Init(ItemDataInfo info, int currenLvl, Slot currentSlot)
+    public void Init(ItemData info, int currenLvl, Slot currentSlot)
     {
         _info = info;
         CurrenLvl = currenLvl;

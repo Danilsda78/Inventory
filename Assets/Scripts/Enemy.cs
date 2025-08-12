@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         transform.position = spawnPoint.position;
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         StartCoroutine(SpawnTxt(damage.ToString()));
     }

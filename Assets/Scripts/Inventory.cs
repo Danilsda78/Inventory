@@ -12,7 +12,7 @@ public class Inventory
     public Inventory(Vector2Int size, Dictionary<Vector2Int, Item> mapItems = null)
     {
         if (mapItems == null)
-            mapItems = new Dictionary<Vector2Int, Item>();
+            mapItems = new();
 
         Size = size;
         MapSlots = new();
@@ -33,7 +33,7 @@ public class Inventory
             var res = AddItem(slot, item);
 
             if (!res)
-                throw new Exception("MapItems is greater than MapSlots");
+                throw new Exception("MapItems is bigger than MapSlots");
         }
     }
 

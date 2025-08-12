@@ -10,9 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 938a3fe7f5c713844ab402e3284c2e87, type: 3}
-  m_Name: Info
+  m_Name: Coffe
   m_EditorClassIdentifier: 
-  Title: 
-  ListPos: []
-  Lvl: []
-  IsAutoAction: 1
+  Title: "\u041A\u043E\u0444\u0444\u0435"
+  Type: 4
+  Recharge: 2
+  ListPos:
+  - {x: 0, y: 0}
+  Lvl:
+  - {fileID: 11400000, guid: b921ba79cb12b36409f22de2056dbdbb, type: 2}
+  - {fileID: 11400000, guid: 7b3b7d5d3cc7e014ba612c81ab29ce57, type: 2}
+  IsAutoAction: 0

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Info", menuName = "DataItemInfo")]
-public class ItemDataInfo : ScriptableObject
+[CreateAssetMenu(fileName = "ItemData", menuName = "ItemData")]
+public class ItemData : ScriptableObject
 {
     public string Title;
+    public ItemType Type;
     public float Recharge;
     public Vector2Int[] ListPos;
-    public List<ItemDataDinamic> Lvl;
+    public List<ItemDataLvl> Lvl;
     public bool IsAutoAction;
 }
 

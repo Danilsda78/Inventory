@@ -8,7 +8,7 @@ public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     [SerializeField] private Image _image;
     public Vector2 StartPosition { get; private set; }
     public Item Item;
-    public ItemDataInfo Info;
+    public ItemData Info;
     public Action<ItemUI, Slot> EOnBeginDrag;
 
     private void Start()

@@ -18,7 +18,7 @@ public class ReactProperty<T>
             var oldValue = _value;
             _value = value;
 
-            if (_comparer.Equals(_value, value) == false)
+            if (_comparer.Equals(oldValue, value) == false)
                 EChanged?.Invoke(_value);
         }
     }

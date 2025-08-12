@@ -1,22 +1,23 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SliderView : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
-    private Action<float> _onChange;
-    public void Init(float maxValue, Action<float> action)
+    private ReactProperty<float> _reactProp;
+    public void Init(float maxValue, ReactProperty<float> reactProp)
     {
         _slider.maxValue = maxValue;
-        action = _onChange;
-        _onChange += ReloudSlider;
+        _slider.value = 0;
+        _reactProp = reactProp;
+        _reactProp.EChanged += ReloudSlider;
     }
 
     private void ReloudSlider(float value) => _slider.value = value;
 
     private void OnDisable()
     {
-        _onChange -= ReloudSlider;
+        if (_reactProp != null )
+            _reactProp.EChanged -= ReloudSlider;
     }
 }
