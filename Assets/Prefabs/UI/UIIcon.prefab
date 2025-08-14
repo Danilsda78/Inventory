@@ -85,9 +85,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 718478414365864975}
-  - component: {fileID: 5555771724238285754}
-  - component: {fileID: 1439553954414494690}
   - component: {fileID: 233451575195416924}
+  - component: {fileID: 5555771724238285754}
+  - component: {fileID: 2274717955589477690}
   m_Layer: 5
   m_Name: UIIcon
   m_TagString: Untagged
@@ -116,34 +116,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5555771724238285754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023441713087315187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd04bb122a4461d4cbdfe4c964c146df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slider: {fileID: 2330317230409288449}
---- !u!114 &1439553954414494690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023441713087315187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4f9a06ea8cdbe4789a4c6f7c808742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _imageItem: {fileID: 4230295439003652521}
-  _sliderView: {fileID: 5555771724238285754}
-  Button: {fileID: 233451575195416924}
 --- !u!114 &233451575195416924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +160,34 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5555771724238285754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023441713087315187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd04bb122a4461d4cbdfe4c964c146df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 2330317230409288449}
+--- !u!114 &2274717955589477690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023441713087315187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13428e9e89aa2994bb82b1380bc4f859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _imageItem: {fileID: 4230295439003652521}
+  _sliderView: {fileID: 5555771724238285754}
+  Button: {fileID: 233451575195416924}
 --- !u!1 &1449252393124344560
 GameObject:
   m_ObjectHideFlags: 0

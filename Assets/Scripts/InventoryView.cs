@@ -3,27 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class InventoryUI : MonoBehaviour
+public class InventoryView : MonoBehaviour
 {
     [SerializeField] private GridLayoutGroup _layoutGroup;
     [SerializeField] private Vector2Int _sizeInventory;
     [SerializeField] private Transform _transformParantSlots;
     [SerializeField] private SlotUI _prefSlot;
     [SerializeField] private List<ItemInInventoryView> _listPrefItems;
-    [SerializeField] private Dictionary<Vector2Int, SlotUI> _mapSlots;
+    [SerializeField] private Dictionary<MyVector2Int, SlotUI> _mapSlots;
 
     private Inventory _inventory;
 
 
-    private void Start()
+    public void Init(Inventory inventory)
     {
-        Init(_sizeInventory, new());
-
-    }
-
-    public void Init(Vector2Int sizeInventory, Dictionary<Vector2Int, Item> mapItems)
-    {
-        _inventory = new Inventory(sizeInventory, mapItems);
+        _inventory = inventory;
         _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         _layoutGroup.constraintCount = _inventory.Size.x;
         _mapSlots = new();
@@ -38,7 +32,7 @@ public class InventoryUI : MonoBehaviour
             newSlot.EOnDrop += OnAddItemSlots;
         }
 
-        foreach (var keyValue in mapItems)
+        foreach (var keyValue in _inventory.MapItems)
         {
             var item = keyValue.Value;
             var itemPos = keyValue.Key;

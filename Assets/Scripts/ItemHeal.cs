@@ -10,7 +10,7 @@ public class ItemHeal : MonoBehaviour
 
     public int CurrenLvl { get; private set; }
     public int Id { get => _info.Lvl[CurrenLvl].Id; }
-    public Vector2Int[] ListPos { get => _info.ListPos; }
+    public MyVector2Int[] ListPos { get => _info.ListPos; }
     public Slot CurrentSlot { get; set; }
     private int _maxLvl { get => _info.Lvl.Count; }
     public bool isAuto { get { return _info.IsAutoAction; } }

@@ -1,13 +1,12 @@
 ﻿using System;
-using UnityEngine;
 
 [Serializable]
 public struct Slot
 {
-    public Vector2Int Position;
-    public int Id;
+    public MyVector2Int Position {  get; set; }
+    public int Id {  get; set; }
 
-    public Slot(Vector2Int pos, int id)
+    public Slot(MyVector2Int pos, int id)
     {
         Position = pos;
         Id = id;

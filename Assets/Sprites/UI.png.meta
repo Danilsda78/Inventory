@@ -1249,6 +1249,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Btn_NotPres
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 240
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e71d6aaed2f7dca469cb452535b247ea
+      internalID: 1925014742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Btn_Pres
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 240
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ab13fcacb05c754d8b384dad57f8e16
+      internalID: 875871447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -1264,6 +1308,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Border_icon: 2043988648
+      Btn_NotPres: 1925014742
+      Btn_Pres: 875871447
       Hp_bar_empty: -2021933691
       Hp_bar_full: -662097204
   mipmapLimitGroupName: 

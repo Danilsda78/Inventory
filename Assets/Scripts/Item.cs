@@ -9,9 +9,9 @@ public class Item
     public Slot Slot;
     public float Recharge;
     public float Strong;
-    public Vector2Int[] ListPos;
+    public MyVector2Int[] ListPos;
     public bool IsActionAuto;
-    public ItemData Data {  get; private set; }
+    public ItemData Data {  get; set; }
     
     public Item(ItemData data)
     {

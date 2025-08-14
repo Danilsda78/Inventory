@@ -7,7 +7,7 @@ public class ItemData : ScriptableObject
     public string Title;
     public ItemType Type;
     public float Recharge;
-    public Vector2Int[] ListPos;
+    public MyVector2Int[] ListPos;
     public List<ItemDataLvl> Lvl;
     public bool IsAutoAction;
 }

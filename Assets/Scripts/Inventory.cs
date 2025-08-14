@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class Inventory
 {
-    public Vector2Int Size { get; private set; }
-    public Dictionary<Vector2Int, Slot> MapSlots { get; private set; }
-    public Dictionary<Vector2Int, Item> MapItems { get; private set; }
+    public MyVector2Int Size { get; private set; }
+    public Dictionary<MyVector2Int, Slot> MapSlots { get; set; }
+    public Dictionary<MyVector2Int, Item> MapItems { get; set; }
 
-    public Inventory(Vector2Int size, Dictionary<Vector2Int, Item> mapItems = null)
+    public Inventory(MyVector2Int size, Dictionary<MyVector2Int, Item> mapItems = null)
     {
         if (mapItems == null)
             mapItems = new();
@@ -21,7 +20,7 @@ public class Inventory
         for (int y = 0; y < Size.y; y++)
             for (int x = 0; x < Size.x; x++)
             {
-                var posSlot = new Vector2Int(x, y);
+                var posSlot = new MyVector2Int(x, y);
                 var emptySlot = new Slot(posSlot, -1);
                 MapSlots.Add(posSlot, emptySlot);
             }
@@ -37,7 +36,7 @@ public class Inventory
         }
     }
 
-    public bool IsAddItem(Slot slot, Item item, out List<Vector2Int> listPosSlots)
+    public bool IsAddItem(Slot slot, Item item, out List<MyVector2Int> listPosSlots)
     {
         var isAdd = true;
         listPosSlots = new();
@@ -77,7 +76,7 @@ public class Inventory
         return true;
     }
 
-    public bool RemoveItem(Vector2Int itemPos)
+    public bool RemoveItem(MyVector2Int itemPos)
     {
         var isNotNull = MapItems.ContainsKey(itemPos);
 
