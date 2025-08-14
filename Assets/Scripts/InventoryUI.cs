@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Vector2Int _sizeInventory;
     [SerializeField] private Transform _transformParantSlots;
     [SerializeField] private SlotUI _prefSlot;
-    [SerializeField] private List<ItemUI> _listPrefItems;
+    [SerializeField] private List<ItemInInventoryView> _listPrefItems;
     [SerializeField] private Dictionary<Vector2Int, SlotUI> _mapSlots;
 
     private Inventory _inventory;
@@ -78,7 +78,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void OnAddItemSlots(ItemUI itemUI, SlotUI slotUI)
+    public void OnAddItemSlots(ItemInInventoryView itemUI, SlotUI slotUI)
     {
         var isAdd = _inventory.IsAddItem(slotUI.Slot, itemUI.Item, out var listPosSlots);
         if (isAdd)
@@ -92,7 +92,7 @@ public class InventoryUI : MonoBehaviour
         OnClearSlotsUI();
     }
 
-    public void OnRemoveItemUI(ItemUI itemUI, Slot slot)
+    public void OnRemoveItemUI(ItemInInventoryView itemUI, Slot slot)
     {
         _inventory.RemoveItem(slot.Position);
         itemUI.EOnBeginDrag -= OnRemoveItemUI;

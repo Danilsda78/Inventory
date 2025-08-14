@@ -1,42 +1,82 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GamePlay : MonoBehaviour
 {
-    public Inventory inventory;
-    public ItemData itemDataInfo;
-    public Player playerPref;
-    public Transform playerPos;
-    public Enemy enemyPref;
-    public Transform enemyPos;
+    [Header("Player")]
+    [SerializeField] private Player playerPref;
+    [SerializeField] private Transform playerPos;
+    [Header("Enemy")]
+    [SerializeField] private Enemy enemyPref;
+    [SerializeField] private Transform enemyPos;
 
-    public ItemViewGameplay itemView;
-    private ItemActionManager itemActionManager;
+    [Header("Item Icon")]
+    [SerializeField] private ItemGameplayView _iconItemPrefab;
+    [SerializeField] private Transform _iconItemAutoParant;
+    [SerializeField] private Transform _iconItemPasivParant;
 
-    void Start()
+    private ItemActionManager _itemActionManager;
+    private List<ItemGameplayView> _itemView;
+    private Player _player;
+    private Enemy _enemy;
+
+    public void Init(Inventory inventory)
     {
-        inventory = new(new Vector2Int(3, 3));
-        var item = new Item(itemDataInfo);
-        var slot = new Slot() { Position = new Vector2Int(1, 1) };
-        inventory.AddItem(slot, item);
+        _player = Instantiate(playerPref);
+        _player.Init(playerPos);
 
-        var player = Instantiate(playerPref);
-        player.Init(playerPos);
+        _enemy = Instantiate(enemyPref);
+        _enemy.Init(enemyPos);
 
-        var enemy = Instantiate(enemyPref);
-        enemy.Init(enemyPos);
-
-
-        itemActionManager = new ItemActionManager(inventory, player, enemy);
-        itemView.Init(itemDataInfo.Lvl[0].Sprite, itemActionManager.Items[0].CurrentRecharg, itemDataInfo.Recharge);
+        _itemActionManager = new ItemActionManager(inventory, _player, _enemy);
+        _itemView = CreateViewItems(_itemActionManager, _iconItemPrefab, _iconItemAutoParant, _iconItemPasivParant);
     }
 
-    void Update()
+    public void Run()
     {
-        itemActionManager.Run();
+        _itemActionManager.Run();
 
-        if (Input.GetMouseButtonDown(0))
-            itemActionManager.EAction(ItemType.coffe);
+        foreach (var item in _itemView)
+        {
+            if (_itemActionManager.ListAutoItems.Contains(item.ItemRecharg))
+                item.Action();
+        }
+    }
 
+    public void Destroy()
+    {
+        _itemActionManager.Dispose();
 
+        Destroy(_player.gameObject);
+        Destroy(_enemy.gameObject);
+
+        foreach (var item in _itemView)
+            Destroy(item.gameObject);
+    }
+
+    private List<ItemGameplayView> CreateViewItems(ItemActionManager ActionManager, ItemGameplayView prefab, Transform transformAutoParant, Transform transformPasivParant)
+    {
+        var list = new List<ItemGameplayView>();
+
+        foreach (var itemRecharg in ActionManager.ListAutoItems)
+        {
+            var item = Instantiate(prefab, transformAutoParant);
+            item.ItemRecharg = itemRecharg;
+            item.Init();
+            item.EPresButton += ActionManager.EAction;
+            list.Add(item);
+        }
+
+        foreach (var itemRecharg in ActionManager.ListPasivItems)
+        {
+            var item = Instantiate(prefab, transformPasivParant);
+            item.ItemRecharg = itemRecharg;
+            item.EPresButton += ActionManager.EAction;
+            item.Init();
+            list.Add(item);
+        }
+
+        return list;
     }
 }

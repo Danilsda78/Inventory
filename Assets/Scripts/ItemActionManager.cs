@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ItemActionManager : IDisposable
 {
     public Action<ItemType> EAction;
-    public List<ItemTypeRecharg> Items = new();
+    public List<ItemTypeRecharg> ListAllItems = new();
+    public List<ItemTypeRecharg> ListAutoItems = new();
+    public List<ItemTypeRecharg> ListPasivItems = new();
 
     private Inventory _inventory;
     private Dictionary<ItemType, float[]> _mapItemType = new();
     private Player _player;
     private Enemy _enemy;
     private const int STRONG = 0;
-    private const int RECHARG = 1;
 
     public ItemActionManager(Inventory inventory, Player player, Enemy enemy)
     {
@@ -25,57 +27,54 @@ public class ItemActionManager : IDisposable
                 _mapItemType[item.Type][STRONG] += item.Strong;
             else
             {
-                _mapItemType[item.Type] = new float[2];
-                _mapItemType[item.Type][STRONG] = item.Strong;
-                _mapItemType[item.Type][RECHARG] = item.Recharge;
+                _mapItemType.Add(item.Type, new float[2] { item.Strong, item.Recharge });
+                var ItemRecharg = new ItemTypeRecharg(item);
+                ListAllItems.Add(ItemRecharg);
+
+                if (item.IsActionAuto)
+                    ListAutoItems.Add(ItemRecharg);
+                else
+                    ListPasivItems.Add(ItemRecharg);
             }
         }
-
-        foreach (var item in _mapItemType)
-            Items.Add(new ItemTypeRecharg(item.Key, item.Value[RECHARG]));
 
         EAction += Action;
     }
 
     public void Run()
     {
-        foreach (var item in Items)
-        {
+        foreach (var item in ListAllItems)
             item.Run();
-        }
     }
 
     public void Action(ItemType itemType)
     {
-        float strong;
+        var item = GetItemRecharg(itemType);
 
-        if (itemType == ItemType.coffe)
+        if (item == null || item.IsReady == false)
+            return;
+
+        float strong = _mapItemType[itemType][STRONG];
+
+        if (itemType == ItemType.coffe || itemType == ItemType.heal)
         {
-            strong = _mapItemType[ItemType.coffe][STRONG];
             _player.GetHeal(strong);
-            GetItemRecharg(itemType)?.Action();
+            item.Action();
             return;
         }
-
-        if (itemType == ItemType.heal)
+        else
         {
-            strong = _mapItemType[ItemType.heal][STRONG];
-            _player.GetHeal(strong);
-            GetItemRecharg(itemType)?.Action();
+            _enemy.TakeDamage(strong);
+            item.Action();
             return;
         }
-
-        strong = _mapItemType[ItemType.heal][STRONG];
-        _enemy.TakeDamage(strong);
-
-        GetItemRecharg(itemType)?.Action();
     }
 
     private ItemTypeRecharg GetItemRecharg(ItemType itemType)
     {
-        foreach (var item in Items)
+        foreach (var item in ListAllItems)
         {
-            if (item.Type == itemType)
+            if (item.Item.Type == itemType)
                 return item;
         }
 

@@ -3,33 +3,31 @@ using UnityEngine;
 
 public class ItemTypeRecharg
 {
-    public ItemType Type { get; private set; }
-    public ReactProperty<float> CurrentRecharg;
-    public Action EReady;
-    private float _recharg;
+    public Item Item { get; private set; }
+    public bool IsReady { get; private set; }
+    public ReactProperty<float> CurrentRecharg = new ReactProperty<float>();
+    public Action EAction;
 
-    public ItemTypeRecharg(ItemType itemType, float recharg)
-    {
-        CurrentRecharg = new ReactProperty<float>(0);
-        Type = itemType;
-        _recharg = recharg;
-    }
+    public ItemTypeRecharg(Item item) => Item = item;
 
     public void Run()
     {
         if (CurrentRecharg.Value > 0)
         {
             CurrentRecharg.Value -= Time.deltaTime;
+            IsReady = false;
         }
         else
         {
             CurrentRecharg.Value = 0;
-            EReady?.Invoke();
+            IsReady = true;
         }
     }
 
     public void Action()
     {
-        CurrentRecharg.Value = _recharg;
+        CurrentRecharg.Value = Item.Recharge;
+        IsReady = false;
+        EAction?.Invoke();
     }
 }

@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemInInventoryView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private Image _image;
     public Vector2 StartPosition { get; private set; }
     public Item Item;
     public ItemData Info;
-    public Action<ItemUI, Slot> EOnBeginDrag;
+    public Action<ItemInInventoryView, Slot> EOnBeginDrag;
 
     private void Start()
     {

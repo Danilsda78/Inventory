@@ -15,9 +15,10 @@ public class SliderView : MonoBehaviour
 
     private void ReloudSlider(float value) => _slider.value = value;
 
+
     private void OnDisable()
     {
-        if (_reactProp != null )
+        if (_reactProp != null)
             _reactProp.EChanged -= ReloudSlider;
     }
 }
