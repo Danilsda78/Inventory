@@ -13,14 +13,14 @@ public class SlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
     public Slot Slot;
     public Action<Item, SlotUI> EOnPointerEnter;
     public Action EOnPointerExit;
-    public Action<ItemInInventoryView, SlotUI> EOnDrop;
+    public Action<ItemInventoryView, SlotUI> EOnDrop;
 
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null)
             return;
 
-        var result = eventData.pointerDrag.TryGetComponent<ItemInInventoryView>(out var itemUI);
+        var result = eventData.pointerDrag.TryGetComponent<ItemInventoryView>(out var itemUI);
         if (result == false)
             return;
 
@@ -32,11 +32,11 @@ public class SlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
         if (eventData.pointerDrag == null)
             return;
 
-        var result = eventData.pointerDrag.TryGetComponent<ItemInInventoryView>(out var itemUI);
+        var result = eventData.pointerDrag.TryGetComponent<ItemInventoryView>(out var itemUI);
         if (result == false)
             return;
 
-        EOnPointerEnter?.Invoke(itemUI.Item, this);
+        EOnPointerEnter?.Invoke(itemUI.ItemView.Item, this);
     }
 
     public void OnPointerExit(PointerEventData eventData)

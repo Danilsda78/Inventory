@@ -3,17 +3,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemInInventoryView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemInventoryView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private Image _image;
     public Vector2 StartPosition { get; private set; }
-    public Item Item;
-    public ItemData Info;
-    public Action<ItemInInventoryView, Slot> EOnBeginDrag;
+    public ItemView ItemView;
+    public Action<ItemInventoryView, Slot> EOnBeginDrag;
 
-    private void Start()
+
+    public void Init(ItemView itemView)
     {
-        Item = new(Info);
+        ItemView = itemView;
+        _image.sprite = ItemView.Sprite;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -22,7 +23,7 @@ public class ItemInInventoryView : MonoBehaviour, IBeginDragHandler, IDragHandle
         _image.raycastTarget = false;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
-        EOnBeginDrag?.Invoke(this, Item.Slot);
+        EOnBeginDrag?.Invoke(this, ItemView.Item.Slot);
     }
 
     public void OnDrag(PointerEventData eventData)

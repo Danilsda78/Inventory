@@ -6,25 +6,6 @@ static public class StoregManager
 {
     private const string KEY = "inventory";
 
-    struct InventorySave
-    {
-        public MyVector2Int Size;
-        public Dictionary<MyVector2Int, Item> MapItems;
-
-        public InventorySave SetData(Inventory inventory)
-        {
-            Size = inventory.Size;
-            MapItems = inventory.MapItems;
-            return this;
-        }
-
-        public Inventory GetData(InventorySave data)
-        {
-            this = data;
-            return new Inventory(Size, MapItems);
-        }
-    }
-
     static public void Save(Inventory inventory)
     {
         var data = new InventorySave().SetData(inventory);
@@ -38,7 +19,7 @@ static public class StoregManager
     static public Inventory Load()
     {
         if (PlayerPrefs.HasKey(KEY) == false)
-            return new Inventory(new MyVector2Int(2, 2));
+            return new Inventory(new MyVector2Int(3, 3));
 
         string json = PlayerPrefs.GetString(KEY);
         Debug.Log(json);
@@ -48,5 +29,24 @@ static public class StoregManager
 
         Debug.Log(inventory.MapSlots);
         return inventory;
+    }
+}
+
+public struct InventorySave
+{
+    public MyVector2Int Size;
+    public Dictionary<MyVector2Int, Item> MapItems;
+
+    public InventorySave SetData(Inventory inventory)
+    {
+        Size = inventory.Size;
+        MapItems = inventory.MapItems;
+        return this;
+    }
+
+    public Inventory GetData(InventorySave data)
+    {
+        this = data;
+        return new Inventory(Size, MapItems);
     }
 }

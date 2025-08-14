@@ -9,29 +9,29 @@ public class ItemActionManager : IDisposable
     public List<ItemTypeRecharg> ListAutoItems = new();
     public List<ItemTypeRecharg> ListPasivItems = new();
 
-    private Inventory _inventory;
+    private InventoryView _inventoryView;
     private Dictionary<ItemType, float[]> _mapItemType = new();
     private Player _player;
     private Enemy _enemy;
     private const int STRONG = 0;
 
-    public ItemActionManager(Inventory inventory, Player player, Enemy enemy)
+    public ItemActionManager(InventoryView inventoryView, Player player, Enemy enemy)
     {
-        _inventory = inventory;
+        _inventoryView = inventoryView;
         _enemy = enemy;
         _player = player;
 
-        foreach (var item in _inventory.GetListItems())
+        foreach (var item in _inventoryView.GetListItemView())
         {
-            if (_mapItemType.ContainsKey(item.Type))
-                _mapItemType[item.Type][STRONG] += item.Strong;
+            if (_mapItemType.ContainsKey(item.Data.Type))
+                _mapItemType[item.Data.Type][STRONG] += item.Strong;
             else
             {
-                _mapItemType.Add(item.Type, new float[2] { item.Strong, item.Recharge });
+                _mapItemType.Add(item.Data.Type, new float[2] { item.Strong, item.Data.Recharge });
                 var ItemRecharg = new ItemTypeRecharg(item);
                 ListAllItems.Add(ItemRecharg);
 
-                if (item.IsActionAuto)
+                if (item.Data.IsAutoAction)
                     ListAutoItems.Add(ItemRecharg);
                 else
                     ListPasivItems.Add(ItemRecharg);
@@ -72,10 +72,10 @@ public class ItemActionManager : IDisposable
 
     private ItemTypeRecharg GetItemRecharg(ItemType itemType)
     {
-        foreach (var item in ListAllItems)
+        foreach (var itemTypeRecharg in ListAllItems)
         {
-            if (item.Item.Type == itemType)
-                return item;
+            if (itemTypeRecharg.ItemView.Data.Type == itemType)
+                return itemTypeRecharg;
         }
 
         return null;

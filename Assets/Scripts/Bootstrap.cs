@@ -12,21 +12,24 @@ public class Bootstrap : MonoBehaviour
 
     private void Start()
     {
+        //PlayerPrefs.DeleteAll();
         _buttonSwichPlay.EPlayGame += PlayGame;
         _buttonSwichPlay.EPlayInventory += PlayInventory;
-        PlayerPrefs.DeleteAll();
+        InvenrotyPlay.Init();
+        InvenrotyPlay.Create();
+
     }
 
     public void PlayGame()
     {
-        var inv = new Inventory(new MyVector2Int(2,2));
-        GamePlay.Init(inv);
+        GamePlay.Init(InvenrotyPlay.GetInventoryView());
+        GamePlay.Create();
         InvenrotyPlay.Destroy();
     }
 
     public void PlayInventory()
     {
-        InvenrotyPlay.Init();
+        InvenrotyPlay.Create();
         GamePlay.Destroy();
     }
 }

@@ -6,23 +6,24 @@ using UnityEngine.UI;
 public class InventoryView : MonoBehaviour
 {
     [SerializeField] private GridLayoutGroup _layoutGroup;
-    [SerializeField] private Vector2Int _sizeInventory;
     [SerializeField] private Transform _transformParantSlots;
     [SerializeField] private SlotUI _prefSlot;
-    [SerializeField] private List<ItemInInventoryView> _listPrefItems;
+    [SerializeField] private ItemInventoryView _itemInventoryViewPrefab;
     [SerializeField] private Dictionary<MyVector2Int, SlotUI> _mapSlots;
+    [SerializeField] private List<ItemData> _listItemData;
 
-    private Inventory _inventory;
+    public List<ItemInventoryView> ItemInventoryViews;
+    public Inventory Inventory;
 
 
     public void Init(Inventory inventory)
     {
-        _inventory = inventory;
+        Inventory = inventory;
         _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        _layoutGroup.constraintCount = _inventory.Size.x;
+        _layoutGroup.constraintCount = Inventory.Size.x;
         _mapSlots = new();
 
-        foreach (var slot in _inventory.MapSlots)
+        foreach (var slot in Inventory.MapSlots)
         {
             var newSlot = Instantiate(_prefSlot, _transformParantSlots);
             newSlot.Slot = slot.Value;
@@ -32,30 +33,20 @@ public class InventoryView : MonoBehaviour
             newSlot.EOnDrop += OnAddItemSlots;
         }
 
-        foreach (var keyValue in _inventory.MapItems)
+        foreach (var itemView in GetListItemView())
         {
-            var item = keyValue.Value;
-            var itemPos = keyValue.Key;
-            var slotUI = _mapSlots[itemPos];
-
-            foreach (var itemUI in _listPrefItems)
-            {
-                if (itemUI.Item.Id == item.Id)
-                {
-                    Instantiate(itemUI).transform.position = slotUI.transform.position;
-                    break;
-                }
-            }
+            var newItemInventory = CreateItemInventiryView(itemView.Item.Id);
+            newItemInventory.transform.position = _mapSlots[itemView.Item.Slot.Position].transform.position;
         }
     }
 
     private void OnItemEnterSlots(Item item, SlotUI slotUI)
     {
-        var isAddItem = _inventory.IsAddItem(slotUI.Slot, item, out var listPosSlots);
+        var isAddItem = Inventory.IsAddItem(slotUI.Slot, item, out var listPosSlots);
 
         foreach (var pos in listPosSlots)
         {
-            var isNotNull = _inventory.MapSlots.ContainsKey(pos);
+            var isNotNull = Inventory.MapSlots.ContainsKey(pos);
 
             if (isNotNull)
                 if (isAddItem)
@@ -72,25 +63,67 @@ public class InventoryView : MonoBehaviour
         }
     }
 
-    public void OnAddItemSlots(ItemInInventoryView itemUI, SlotUI slotUI)
+    public void OnAddItemSlots(ItemInventoryView itemUI, SlotUI slotUI)
     {
-        var isAdd = _inventory.IsAddItem(slotUI.Slot, itemUI.Item, out var listPosSlots);
+        var isAdd = Inventory.IsAddItem(slotUI.Slot, itemUI.ItemView.Item, out var listPosSlots);
         if (isAdd)
         {
-            _inventory.AddItem(slotUI.Slot, itemUI.Item);
+            Inventory.AddItem(slotUI.Slot, itemUI.ItemView.Item);
             itemUI.EOnBeginDrag += OnRemoveItemUI;
             itemUI.transform.position = slotUI.transform.position;
-            Debug.Log($"Add '{itemUI.Item}' in invetory to slot '{slotUI.Slot.Position}'");
+            Debug.Log($"Add '{itemUI.ItemView.Item}' in invetory to slot '{slotUI.Slot.Position}'");
         }
 
         OnClearSlotsUI();
     }
 
-    public void OnRemoveItemUI(ItemInInventoryView itemUI, Slot slot)
+    public void OnRemoveItemUI(ItemInventoryView itemUI, Slot slot)
     {
-        _inventory.RemoveItem(slot.Position);
+        Inventory.RemoveItem(slot.Position);
         itemUI.EOnBeginDrag -= OnRemoveItemUI;
-        Debug.Log($"Remove '{itemUI.Item}' in invetory.");
+        Debug.Log($"Remove '{itemUI.ItemView.Item}' in invetory.");
+    }
+
+    public ItemView GetItemView(Item item)
+    {
+        ItemView newItemView = null;
+
+        foreach (var itemData in _listItemData)
+            foreach (var itemLvl in itemData.Lvl)
+                if (itemLvl.Id == item.Id)
+                    newItemView = new ItemView(item, itemData);
+
+        return newItemView;
+    }
+
+    public List<ItemView> GetListItemView()
+    {
+        List<ItemView> newList = new();
+
+        foreach (var item in Inventory.GetListItems())
+            newList.Add(GetItemView(item));
+
+        return newList;
+    }
+
+    public ItemInventoryView CreateItemInventiryView(int id)
+    {
+        ItemView itemView = null;
+
+        foreach (var data in _listItemData)
+            itemView = ItemView.CreateItem(id, data);
+
+        var newItemInventiry = Instantiate(_itemInventoryViewPrefab, _transformParantSlots.transform.root);
+        newItemInventiry.Init(itemView);
+        ItemInventoryViews.Add(newItemInventiry);
+
+        return newItemInventiry;
+    }
+
+    public void OnDestroy()
+    {
+        foreach (var item in ItemInventoryViews)
+            Destroy(item.gameObject);
     }
 }
 

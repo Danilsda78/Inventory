@@ -12,12 +12,12 @@ public class ItemGameplayView : MonoBehaviour
 
     public void Init()
     {
-        _sliderView.Init(ItemRecharg.Item.Recharge, ItemRecharg.CurrentRecharg);
-        _imageItem.sprite = ItemRecharg.Item.GetSprite();
+        _sliderView.Init(ItemRecharg.ItemView.Data.Recharge, ItemRecharg.CurrentRecharg);
+        _imageItem.sprite = ItemRecharg.ItemView.GetSprite();
         Button.onClick.AddListener(Action);
     }
 
-    public void Action() => EPresButton?.Invoke(ItemRecharg.Item.Type);
+    public void Action() => EPresButton?.Invoke(ItemRecharg.ItemView.Data.Type);
 
     private void OnDisable() => Button.onClick.RemoveListener(Action);
 }

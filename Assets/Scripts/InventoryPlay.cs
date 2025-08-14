@@ -4,33 +4,50 @@ using UnityEngine;
 public class InventoryPlay : MonoBehaviour
 {
     [Header("Inventory")]
-    [SerializeField] private InventoryView _inventoryUIPref;
-    [SerializeField] private Transform _inventoryUIParent;
+    [SerializeField] private InventoryView _inventoryViewPrefab;
+    [SerializeField] private Transform _inventoryViewParent;
 
-    private InventoryView _inventoryUI;
+    private InventoryView _inventoryView;
     private Inventory _inventory;
 
-    private void Start()
-    {
-        //Init();
-    }
 
-    Action<Inventory> callback;
     public void Init()
     {
-        var inventory = StoregManager.Load();
+        _inventory = GetInventory();
+    }
 
-        _inventoryUI = Instantiate(_inventoryUIPref, _inventoryUIParent);
-        _inventoryUI.Init(inventory);
-        _inventory = inventory;
+    public void Create()
+    {
+        _inventoryView = Instantiate(_inventoryViewPrefab, _inventoryViewParent);
+        _inventoryView.Init(_inventory);
+        _inventoryView.CreateItemInventiryView(0);
     }
 
     public void Destroy()
     {
-        if (_inventory != null && _inventoryUI != null)
-        {
+        if (_inventory != null)
             StoregManager.Save(_inventory);
-            Destroy(_inventoryUI.gameObject);
-        }
+
+        if (_inventoryView != null)
+            Destroy(_inventoryView.gameObject);
+    }
+
+    public Inventory GetInventory()
+    {
+        Inventory inventory = null;
+
+        if (_inventory == null)
+            inventory = StoregManager.Load();
+        else
+            inventory = _inventory;
+
+        return inventory;
+    }
+    public InventoryView GetInventoryView()
+    {
+        if (_inventoryView == null)
+            throw new Exception($"InventoryView in {this} is null");
+
+        return _inventoryView;
     }
 }

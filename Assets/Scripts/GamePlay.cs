@@ -21,7 +21,12 @@ public class GamePlay : MonoBehaviour
     private Player _player;
     private Enemy _enemy;
 
-    public void Init(Inventory inventory)
+    public void Init(InventoryView inventoryView)
+    {
+        _itemActionManager = new ItemActionManager(inventoryView, _player, _enemy);
+    }
+
+    public void Create()
     {
         _player = Instantiate(playerPref);
         _player.Init(playerPos);
@@ -29,7 +34,6 @@ public class GamePlay : MonoBehaviour
         _enemy = Instantiate(enemyPref);
         _enemy.Init(enemyPos);
 
-        _itemActionManager = new ItemActionManager(inventory, _player, _enemy);
         _itemView = CreateViewItems(_itemActionManager, _iconItemPrefab, _iconItemAutoParant, _iconItemPasivParant);
     }
 

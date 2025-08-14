@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 290, y: -65}
+  m_AnchoredPosition: {x: 290, y: -170}
   m_SizeDelta: {x: 480, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5207472637751905231
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 8084950014923517248}
   - component: {fileID: 8017625040060346720}
   m_Layer: 5
-  m_Name: InventoryUI
+  m_Name: InventoryView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,7 +247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _layoutGroup: {fileID: 1740683699660917987}
-  _sizeInventory: {x: 3, y: 3}
   _transformParantSlots: {fileID: 1545213424237599059}
   _prefSlot: {fileID: 1390815849387804766, guid: ee91410d353b45a42a654f1a71bf5a81, type: 3}
-  _listPrefItems: []
+  _itemInventoryViewPrefab: {fileID: 4321211247860867797, guid: 61e2c61e368c92e498b9c3488279a62c, type: 3}
+  _listItemData:
+  - {fileID: 11400000, guid: 1b6a81c5223199246a48df9690d88199, type: 2}
+  ItemInventoryViews: []

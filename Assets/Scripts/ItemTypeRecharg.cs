@@ -4,11 +4,16 @@ using UnityEngine;
 public class ItemTypeRecharg
 {
     public Item Item { get; private set; }
+    public ItemView ItemView { get; private set; }
     public bool IsReady { get; private set; }
     public ReactProperty<float> CurrentRecharg = new ReactProperty<float>();
     public Action EAction;
 
-    public ItemTypeRecharg(Item item) => Item = item;
+    public ItemTypeRecharg(ItemView itemView)
+    {
+        Item = itemView.Item;
+        ItemView = itemView;
+    }
 
     public void Run()
     {
@@ -26,7 +31,7 @@ public class ItemTypeRecharg
 
     public void Action()
     {
-        CurrentRecharg.Value = Item.Recharge;
+        CurrentRecharg.Value = ItemView.Data.Recharge;
         IsReady = false;
         EAction?.Invoke();
     }
