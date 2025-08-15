@@ -1,1 +1,1 @@
-https://github.com/Danilsda78/Inventory/issues/1#issue-3325761481
+https://github.com/user-attachments/assets/b418f5a6-278a-4ea6-8318-abe9eab40bfe
