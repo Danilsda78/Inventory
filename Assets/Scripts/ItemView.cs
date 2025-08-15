@@ -31,21 +31,20 @@ public class ItemView
         return null;
     }
 
-    public bool Merge(Item item)
+    public bool Merge(ItemView item, out ItemView newItemView)
     {
-        if (item.Id != Item.Id || Data.Lvl.Count < Item.Lvl)
+        newItemView = null;
+
+        if (item.Item.Id != Item.Id || Data.Lvl.Count < Item.Lvl)
             return false;
 
-        var newLvl = item.Lvl + 1;
-        Sprite = Data.Lvl[newLvl].Sprite;
-        Strong = Data.Lvl[newLvl].Strong;
-        Item.Lvl = newLvl;
-        Item.Id = Data.Lvl[newLvl].Id;
-
+        var newItem = new Item(item.Item);
+        newItem.Lvl += 1;
+        newItemView = new ItemView(newItem, Data);
         return true;
     }
 
-    static public ItemView CreateItem(int id, ItemData data)
+    static public ItemView CreateEmptyItem(int id, ItemData data)
     {
         var index = data[id];
         var newItem = new Item()
@@ -53,7 +52,13 @@ public class ItemView
             Id = id,
             ListPos = data.ListPos,
             Lvl = index,
+            Slot = new Slot()
+            {
+                Id = -1,
+                Position = new MyVector2Int(-1, -1)
+            }
         };
+
         var newItemView = new ItemView(newItem, data);
 
         return newItemView;

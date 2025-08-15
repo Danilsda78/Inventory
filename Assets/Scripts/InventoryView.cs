@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,15 +30,27 @@ public class InventoryView : MonoBehaviour
             newSlot.Slot = slot.Value;
             _mapSlots.Add(slot.Key, newSlot);
             newSlot.EOnPointerEnter += OnItemEnterSlots;
-            newSlot.EOnPointerExit += OnClearSlotsUI;
+            newSlot.EOnPointerExit += OnClearSlotsView;
             newSlot.EOnDrop += OnAddItemSlots;
         }
 
         foreach (var itemView in GetListItemView())
         {
-            var newItemInventory = CreateItemInventiryView(itemView.Item.Id);
-            newItemInventory.transform.position = _mapSlots[itemView.Item.Slot.Position].transform.position;
+            var itemInventoryView = CreateItemInventiryView(itemView);
+            itemInventoryView.EOnBeginDrag += OnRemoveInventoryView;
+
         }
+
+        StartCoroutine(AsincSetPositionItem());
+    }
+
+    private IEnumerator AsincSetPositionItem()
+    {
+        yield return null;
+
+        foreach (var itemView in ItemInventoryViews)
+            if (_mapSlots.ContainsKey(itemView.ItemView.Item.Slot.Position))
+                itemView.transform.position = _mapSlots[itemView.ItemView.Item.Slot.Position].transform.position;
     }
 
     private void OnItemEnterSlots(Item item, SlotUI slotUI)
@@ -55,7 +68,7 @@ public class InventoryView : MonoBehaviour
         }
     }
 
-    public void OnClearSlotsUI()
+    public void OnClearSlotsView()
     {
         foreach (var slot in _mapSlots)
         {
@@ -63,28 +76,52 @@ public class InventoryView : MonoBehaviour
         }
     }
 
-    public void OnAddItemSlots(ItemInventoryView itemUI, SlotUI slotUI)
+    public void OnAddItemSlots(ItemInventoryView ItemInventoryView, SlotUI slotUI)
     {
-        var isAdd = Inventory.IsAddItem(slotUI.Slot, itemUI.ItemView.Item, out var listPosSlots);
+        var isAdd = Inventory.IsAddItem(slotUI.Slot, ItemInventoryView.ItemView.Item, out var listPosSlots);
         if (isAdd)
         {
-            Inventory.AddItem(slotUI.Slot, itemUI.ItemView.Item);
-            itemUI.EOnBeginDrag += OnRemoveItemUI;
-            itemUI.transform.position = slotUI.transform.position;
-            Debug.Log($"Add '{itemUI.ItemView.Item}' in invetory to slot '{slotUI.Slot.Position}'");
+            Inventory.AddItem(slotUI.Slot, ItemInventoryView.ItemView.Item);
+            ItemInventoryView.EOnBeginDrag += OnRemoveInventoryView;
+            ItemInventoryView.transform.position = slotUI.transform.position;
+            Debug.Log($"Add '{ItemInventoryView.ItemView.Item}' in invetory to slot '{slotUI.Slot.Position}'");
         }
 
-        OnClearSlotsUI();
+        OnClearSlotsView();
     }
 
-    public void OnRemoveItemUI(ItemInventoryView itemUI, Slot slot)
+    public void OnRemoveInventoryView(ItemInventoryView ItemInventoryView, Slot slot)
     {
         Inventory.RemoveItem(slot.Position);
-        itemUI.EOnBeginDrag -= OnRemoveItemUI;
-        Debug.Log($"Remove '{itemUI.ItemView.Item}' in invetory.");
+        ItemInventoryView.EOnBeginDrag -= OnRemoveInventoryView;
+        Debug.Log($"Remove '{ItemInventoryView.ItemView.Item}' in invetory.");
     }
 
-    public ItemView GetItemView(Item item)
+    public void OnDropInventoryView(ItemInventoryView curentItem, ItemInventoryView toMergItem)
+    {
+        var res = curentItem.ItemView.Merge(toMergItem.ItemView, out var newItemView);
+
+        if (res)
+        {
+            if (Inventory.GetPositionInMap(curentItem.ItemView.Item, out var pos))
+            {
+                OnRemoveInventoryView(curentItem, curentItem.ItemView.Item.Slot);
+                OnAddItemSlots(CreateItemInventiryView(newItemView), _mapSlots[pos]);
+            }
+            else
+            {
+                CreateItemInventiryView(newItemView).transform.position = curentItem.transform.position;
+                
+                ItemInventoryViews.Remove(curentItem);
+                Destroy(curentItem.gameObject);
+            }
+
+            ItemInventoryViews.Remove(toMergItem);
+            Destroy(toMergItem.gameObject);
+        }
+    }
+
+    public ItemView GetNewItemView(Item item)
     {
         ItemView newItemView = null;
 
@@ -101,7 +138,7 @@ public class InventoryView : MonoBehaviour
         List<ItemView> newList = new();
 
         foreach (var item in Inventory.GetListItems())
-            newList.Add(GetItemView(item));
+            newList.Add(GetNewItemView(item));
 
         return newList;
     }
@@ -111,11 +148,22 @@ public class InventoryView : MonoBehaviour
         ItemView itemView = null;
 
         foreach (var data in _listItemData)
-            itemView = ItemView.CreateItem(id, data);
+            itemView = ItemView.CreateEmptyItem(id, data);
 
         var newItemInventiry = Instantiate(_itemInventoryViewPrefab, _transformParantSlots.transform.root);
         newItemInventiry.Init(itemView);
+        newItemInventiry.EOnOnDrop += OnDropInventoryView;
         ItemInventoryViews.Add(newItemInventiry);
+
+        return newItemInventiry;
+    }
+
+    public ItemInventoryView CreateItemInventiryView(ItemView itemView)
+    {
+        var newItemInventiry = Instantiate(_itemInventoryViewPrefab, _transformParantSlots.transform.root);
+        newItemInventiry.Init(itemView);
+        ItemInventoryViews.Add(newItemInventiry);
+        newItemInventiry.EOnOnDrop += OnDropInventoryView;
 
         return newItemInventiry;
     }

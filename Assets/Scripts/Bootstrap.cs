@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Bootstrap : MonoBehaviour
 {
@@ -10,14 +9,23 @@ public class Bootstrap : MonoBehaviour
     public GamePlay GamePlay;
     public InventoryPlay InvenrotyPlay;
 
-    private void Start()
+    private void Awake()
     {
-        //PlayerPrefs.DeleteAll();
         _buttonSwichPlay.EPlayGame += PlayGame;
         _buttonSwichPlay.EPlayInventory += PlayInventory;
         InvenrotyPlay.Init();
-        InvenrotyPlay.Create();
+    }
 
+    private void Start()
+    {
+        InvenrotyPlay.Create();
+        
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Backspace))
+            PlayerPrefs.DeleteAll();
     }
 
     public void PlayGame()

@@ -1,6 +1,6 @@
 ﻿using System;
 
-[Serializable]
+[System.Serializable]
 public struct MyVector2Int
 {
     public int x;

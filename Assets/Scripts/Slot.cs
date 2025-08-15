@@ -1,6 +1,5 @@
-﻿using System;
-
-[Serializable]
+﻿
+[System.Serializable]
 public struct Slot
 {
     public MyVector2Int Position {  get; set; }

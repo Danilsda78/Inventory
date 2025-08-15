@@ -20,7 +20,12 @@ public class InventoryPlay : MonoBehaviour
     {
         _inventoryView = Instantiate(_inventoryViewPrefab, _inventoryViewParent);
         _inventoryView.Init(_inventory);
-        _inventoryView.CreateItemInventiryView(0);
+        _inventoryView.CreateItemInventiryView(0).transform.position = transform.position;
+    }
+
+    private void Update()
+    {
+
     }
 
     public void Destroy()

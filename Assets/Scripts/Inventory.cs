@@ -15,7 +15,7 @@ public class Inventory
 
         Size = size;
         MapSlots = new();
-        MapItems = mapItems;
+        MapItems = new();
 
         for (int y = 0; y < Size.y; y++)
             for (int x = 0; x < Size.x; x++)
@@ -25,7 +25,7 @@ public class Inventory
                 MapSlots.Add(posSlot, emptySlot);
             }
 
-        foreach (var keyValue in MapItems)
+        foreach (var keyValue in mapItems)
         {
             var item = keyValue.Value;
             var slot = MapSlots[keyValue.Key];
@@ -91,7 +91,7 @@ public class Inventory
 
         return false;
     }
-
+    
     public List<Item> GetListItems()
     {
         var list = new List<Item>();
@@ -100,5 +100,20 @@ public class Inventory
             list.Add(item.Value);
 
         return list;
+    }
+
+    public bool GetPositionInMap(Item item, out MyVector2Int myVector2Int)
+    {
+        foreach (var keyValue in MapItems)
+        {
+            if (keyValue.Value == item)
+            {
+                myVector2Int = keyValue.Key;
+                return true;
+            }
+        }
+
+        myVector2Int = default;
+        return false;
     }
 }

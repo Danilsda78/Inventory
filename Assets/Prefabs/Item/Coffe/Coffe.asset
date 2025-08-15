@@ -16,8 +16,9 @@ MonoBehaviour:
   Type: 4
   Recharge: 2
   ListPos:
-  - {x: 0, y: 0}
+  - x: 0
+    y: 0
   Lvl:
   - {fileID: 11400000, guid: b921ba79cb12b36409f22de2056dbdbb, type: 2}
   - {fileID: 11400000, guid: 7b3b7d5d3cc7e014ba612c81ab29ce57, type: 2}
-  IsAutoAction: 1
+  IsAutoAction: 0
