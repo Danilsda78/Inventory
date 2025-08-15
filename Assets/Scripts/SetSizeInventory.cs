@@ -13,11 +13,11 @@ public class SetSizeInventory : MonoBehaviour
     public void Init(InventoryView inventoryView)
     {
         _inventoryView = inventoryView;
-        sliderX.onValueChanged.AddListener(SetX);
-        sliderY.onValueChanged.AddListener(SetY);
-
         sliderX.value = _inventoryView.Inventory.Size.x;
         sliderY.value = _inventoryView.Inventory.Size.y;
+
+        sliderX.onValueChanged.AddListener(SetX);
+        sliderY.onValueChanged.AddListener(SetY);
     }
 
     public void SetX(float x)
