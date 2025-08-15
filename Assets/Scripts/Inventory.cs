@@ -49,7 +49,7 @@ public class Inventory
             if (isNotNull)
             {
                 listPosSlots.Add(currentPosition);
-                var res = MapSlots[currentPosition].Id == -1 || MapSlots[currentPosition].Id == item.Id;
+                var res = MapSlots[currentPosition].Id == -1;
                 if (!res)
                     isAdd = false;
             }
@@ -78,14 +78,18 @@ public class Inventory
 
     public bool RemoveItem(MyVector2Int itemPos)
     {
-        var isNotNull = MapItems.ContainsKey(itemPos);
+        var isNotNull = MapItems.TryGetValue(itemPos, out var item);
 
         if (isNotNull)
         {
+            foreach (var keyValue in MapSlots)
+            {
+                if (keyValue.Value.Id == item.Id)
+                    keyValue.Value.Id = -1;
+            }
+
             MapItems.Remove(itemPos);
 
-            var emptySlot = new Slot(itemPos, -1);
-            MapSlots[itemPos] = emptySlot;
             return true;
         }
 

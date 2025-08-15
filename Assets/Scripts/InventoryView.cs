@@ -12,9 +12,11 @@ public class InventoryView : MonoBehaviour
     [SerializeField] private ItemInventoryView _itemInventoryViewPrefab;
     [SerializeField] private Dictionary<MyVector2Int, SlotUI> _mapSlots;
     [SerializeField] private List<ItemData> _listItemData;
+    [SerializeField] private PopupView _popupViewPrefab;
 
     public List<ItemInventoryView> ItemInventoryViews;
     public Inventory Inventory;
+    private PopupView _popupView;
 
 
     public void Init(Inventory inventory)
@@ -42,6 +44,21 @@ public class InventoryView : MonoBehaviour
         }
 
         StartCoroutine(AsincSetPositionItem());
+    }
+
+    public bool SetInventorySize(int x, int y, out Inventory newInventory)
+    {
+        newInventory = new Inventory(new MyVector2Int(x, y));
+
+        foreach (var keyValue in Inventory.MapItems)
+        {
+            var isAdd = newInventory.AddItem(keyValue.Value.Slot, keyValue.Value);
+
+            if (isAdd == false)
+                return false;
+        }
+
+        return true;
     }
 
     private IEnumerator AsincSetPositionItem()
@@ -93,6 +110,7 @@ public class InventoryView : MonoBehaviour
     public void OnRemoveInventoryView(ItemInventoryView ItemInventoryView, Slot slot)
     {
         Inventory.RemoveItem(slot.Position);
+
         ItemInventoryView.EOnBeginDrag -= OnRemoveInventoryView;
         Debug.Log($"Remove '{ItemInventoryView.ItemView.Item}' in invetory.");
     }
@@ -103,19 +121,17 @@ public class InventoryView : MonoBehaviour
 
         if (res)
         {
+            var newItemInventory = CreateItemInventiryView(newItemView);
+            newItemInventory.transform.position = curentItem.transform.position;
+
             if (Inventory.GetPositionInMap(curentItem.ItemView.Item, out var pos))
             {
                 OnRemoveInventoryView(curentItem, curentItem.ItemView.Item.Slot);
-                OnAddItemSlots(CreateItemInventiryView(newItemView), _mapSlots[pos]);
-            }
-            else
-            {
-                CreateItemInventiryView(newItemView).transform.position = curentItem.transform.position;
-                
-                ItemInventoryViews.Remove(curentItem);
-                Destroy(curentItem.gameObject);
+                OnAddItemSlots(newItemInventory, _mapSlots[pos]);
             }
 
+            ItemInventoryViews.Remove(curentItem);
+            Destroy(curentItem.gameObject);
             ItemInventoryViews.Remove(toMergItem);
             Destroy(toMergItem.gameObject);
         }
@@ -148,11 +164,14 @@ public class InventoryView : MonoBehaviour
         ItemView itemView = null;
 
         foreach (var data in _listItemData)
-            itemView = ItemView.CreateEmptyItem(id, data);
+            foreach (var itemData in data.Lvl)
+                if (itemData.Id == id)
+                    itemView = ItemView.CreateEmptyItem(id, data);
 
         var newItemInventiry = Instantiate(_itemInventoryViewPrefab, _transformParantSlots.transform.root);
         newItemInventiry.Init(itemView);
-        newItemInventiry.EOnOnDrop += OnDropInventoryView;
+        newItemInventiry.EOnDrop += OnDropInventoryView;
+        newItemInventiry.EOnPointer += OpenPopup;
         ItemInventoryViews.Add(newItemInventiry);
 
         return newItemInventiry;
@@ -163,9 +182,25 @@ public class InventoryView : MonoBehaviour
         var newItemInventiry = Instantiate(_itemInventoryViewPrefab, _transformParantSlots.transform.root);
         newItemInventiry.Init(itemView);
         ItemInventoryViews.Add(newItemInventiry);
-        newItemInventiry.EOnOnDrop += OnDropInventoryView;
+        newItemInventiry.EOnDrop += OnDropInventoryView;
+        newItemInventiry.EOnPointer += OpenPopup;
 
         return newItemInventiry;
+    }
+
+    public int GetRandomId()
+    {
+        var rnd = new System.Random();
+        var data = _listItemData[rnd.Next(_listItemData.Count)];
+        var id = data.Lvl[rnd.Next(data.Lvl.Count)].Id;
+
+        return id;
+    }
+
+    private void OpenPopup(ItemView itemView)
+    {
+        _popupView = Instantiate(_popupViewPrefab, _transformParantSlots.transform.root);
+        _popupView.Open(itemView);
     }
 
     public void OnDestroy()

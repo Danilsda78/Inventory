@@ -46,12 +46,11 @@ public class ItemView
 
     static public ItemView CreateEmptyItem(int id, ItemData data)
     {
-        var index = data[id];
         var newItem = new Item()
         {
             Id = id,
             ListPos = data.ListPos,
-            Lvl = index,
+            Lvl = 0,
             Slot = new Slot()
             {
                 Id = -1,

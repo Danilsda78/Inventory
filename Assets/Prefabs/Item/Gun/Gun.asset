@@ -10,14 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 938a3fe7f5c713844ab402e3284c2e87, type: 3}
-  m_Name: Info
+  m_Name: Gun
   m_EditorClassIdentifier: 
-  Title: "\u041E\u0431\u0435\u0437\u0431\u0430\u043B\u0438\u0432\u0430\u044E\u0449\u0438\u0435\u0435"
+  Title: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
+  Type: 0
+  Recharge: 3
   ListPos:
-  - {x: 0, y: 0}
-  - {x: 0, y: -1}
-  - {x: 0, y: 1}
+  - x: 0
+    y: 0
+  - x: 0
+    y: 1
+  - x: 1
+    y: 0
   Lvl:
-  - {fileID: 11400000, guid: 069c0a2fbcec14540af9be481de1dd62, type: 2}
-  - {fileID: 11400000, guid: d07c265638d719243ab9a88f0aad8a89, type: 2}
+  - {fileID: 11400000, guid: 24fb048e6e935254392bbdb2410aa05a, type: 2}
+  - {fileID: 11400000, guid: b083bbe2b1936304ca1eda77b7cfc990, type: 2}
+  - {fileID: 11400000, guid: 059085c64dcc65f4586d0607ad8c5654, type: 2}
   IsAutoAction: 1

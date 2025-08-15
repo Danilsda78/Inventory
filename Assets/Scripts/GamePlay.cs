@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GamePlay : MonoBehaviour
@@ -10,23 +9,17 @@ public class GamePlay : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private Enemy enemyPref;
     [SerializeField] private Transform enemyPos;
-
     [Header("Item Icon")]
     [SerializeField] private ItemGameplayView _iconItemPrefab;
     [SerializeField] private Transform _iconItemAutoParant;
     [SerializeField] private Transform _iconItemPasivParant;
 
-    private ItemActionManager _itemActionManager;
+    [SerializeField] private ItemActionManager _itemActionManager;
     private List<ItemGameplayView> _itemView;
     private Player _player;
     private Enemy _enemy;
 
     public void Init(InventoryView inventoryView)
-    {
-        _itemActionManager = new ItemActionManager(inventoryView, _player, _enemy);
-    }
-
-    public void Create()
     {
         _player = Instantiate(playerPref);
         _player.Init(playerPos);
@@ -34,18 +27,20 @@ public class GamePlay : MonoBehaviour
         _enemy = Instantiate(enemyPref);
         _enemy.Init(enemyPos);
 
+        _itemActionManager = new ItemActionManager(inventoryView, _player, _enemy);
         _itemView = CreateViewItems(_itemActionManager, _iconItemPrefab, _iconItemAutoParant, _iconItemPasivParant);
     }
 
     public void Run()
     {
-        _itemActionManager.Run();
+        if (_itemActionManager == null)
+            return;
+
+            _itemActionManager.Run();
 
         foreach (var item in _itemView)
-        {
             if (_itemActionManager.ListAutoItems.Contains(item.ItemRecharg))
                 item.Action();
-        }
     }
 
     public void Destroy()

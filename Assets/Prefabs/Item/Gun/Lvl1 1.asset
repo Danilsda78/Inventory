@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b40c960ecfd40478e719cb93a98e8a, type: 3}
-  m_Name: lvl1
+  m_Name: Lvl1 1
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1041783202, guid: 73fec0fe7a31f1b48b490d46b70be84a, type: 3}
-  Strong: 20
-  Id: 2
+  Sprite: {fileID: 6734468383015796287, guid: 266b11af929f7594e8eb6ac9c21bc2c7, type: 3}
+  Strong: 6
+  Id: 5

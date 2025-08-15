@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938a3fe7f5c713844ab402e3284c2e87, type: 3}
+  m_Name: ItemData
+  m_EditorClassIdentifier: 
+  Title: "\u0410\u0432\u0442\u043E\u043C\u0430\u0442"
+  Type: 1
+  Recharge: 5
+  ListPos:
+  - x: 0
+    y: -1
+  - x: 0
+    y: 0
+  - x: 0
+    y: 1
+  Lvl:
+  - {fileID: 11400000, guid: daf58de8e73c30e4aa545cf3a9544cd4, type: 2}
+  - {fileID: 11400000, guid: 27dee666b669a54498096b5c9a42ef92, type: 2}
+  - {fileID: 11400000, guid: 24b42f41e16026c4486c612be9f92a1d, type: 2}
+  IsAutoAction: 1

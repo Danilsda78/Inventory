@@ -3,13 +3,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemInventoryView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class ItemInventoryView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
 {
     [SerializeField] private Image _image;
     public Vector2 StartPosition { get; private set; }
     public ItemView ItemView;
     public Action<ItemInventoryView, Slot> EOnBeginDrag;
-    public Action<ItemInventoryView, ItemInventoryView> EOnOnDrop;
+    public Action<ItemInventoryView, ItemInventoryView> EOnDrop;
+    public Action<ItemView> EOnPointer;
 
 
     public void Init(ItemView itemView)
@@ -46,6 +47,18 @@ public class ItemInventoryView : MonoBehaviour, IBeginDragHandler, IDragHandler,
         if (result == false)
             return;
 
-        EOnOnDrop?.Invoke(this,itemInventoryView);
+        EOnDrop?.Invoke(this,itemInventoryView);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.pointerDrag == null)
+            return;
+
+        var result = eventData.pointerDrag.TryGetComponent<ItemInventoryView>(out var itemInventoryView);
+        if (result == false)
+            return;
+
+        EOnPointer?.Invoke(itemInventoryView.ItemView);
     }
 }

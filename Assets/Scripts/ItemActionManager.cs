@@ -58,13 +58,13 @@ public class ItemActionManager : IDisposable
 
         if (itemType == ItemType.coffe || itemType == ItemType.heal)
         {
-            _player.GetHeal(strong);
+            _player?.GetHeal(strong);
             item.Action();
             return;
         }
         else
         {
-            _enemy.TakeDamage(strong);
+            _enemy?.TakeDamage(strong);
             item.Action();
             return;
         }
@@ -84,5 +84,7 @@ public class ItemActionManager : IDisposable
     public void Dispose()
     {
         EAction -= Action;
+        _enemy = null;
+        _player = null;
     }
 }

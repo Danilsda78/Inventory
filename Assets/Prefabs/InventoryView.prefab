@@ -252,4 +252,9 @@ MonoBehaviour:
   _itemInventoryViewPrefab: {fileID: 4321211247860867797, guid: 61e2c61e368c92e498b9c3488279a62c, type: 3}
   _listItemData:
   - {fileID: 11400000, guid: 1b6a81c5223199246a48df9690d88199, type: 2}
+  - {fileID: 11400000, guid: 3a469a4f0484c59479b9acf77f0ee24e, type: 2}
+  - {fileID: 11400000, guid: f6425416dc4e8ff47b6b561a29f489ae, type: 2}
+  - {fileID: 11400000, guid: 6becc449818baf7469be29ef7e7c02a6, type: 2}
+  - {fileID: 11400000, guid: 3a6395937e492d44985238f0274d4997, type: 2}
+  _popupViewPrefab: {fileID: 8272225466620048775, guid: 39c3b2e4a29b4684eb25f4a9add5c556, type: 3}
   ItemInventoryViews: []

@@ -48,6 +48,6 @@ MonoBehaviour:
   playerPos: {fileID: 0}
   enemyPref: {fileID: 8985774646429379511, guid: ae4f88c31d9ea2e44906e5a7ca8766b3, type: 3}
   enemyPos: {fileID: 0}
-  _iconItemPrefab: {fileID: 1439553954414494690, guid: 2fa8c870b6ffaa24086280842c89ee5c, type: 3}
+  _iconItemPrefab: {fileID: 2274717955589477690, guid: 2fa8c870b6ffaa24086280842c89ee5c, type: 3}
   _iconItemAutoParant: {fileID: 0}
   _iconItemPasivParant: {fileID: 0}
