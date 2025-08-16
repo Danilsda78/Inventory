@@ -36,4 +36,9 @@ public class Bootstrap : MonoBehaviour
         InvenrotyPlay.Create();
         GamePlay.Destroy();
     }
+
+    private void OnDestroy()
+    {
+        InvenrotyPlay.Destroy();
+    }
 }

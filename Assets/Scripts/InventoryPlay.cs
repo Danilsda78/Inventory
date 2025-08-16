@@ -40,7 +40,7 @@ public class InventoryPlay : MonoBehaviour
         Init();
         Create();
     }
-    
+
     public void Destroy()
     {
         if (_inventory != null)
@@ -49,9 +49,12 @@ public class InventoryPlay : MonoBehaviour
         if (_inventoryView != null)
             Destroy(_inventoryView.gameObject);
 
-        _setSizeInventory.gameObject.SetActive(false);
-        _setSizeInventory.EReaload -= Reload;
-        _setSizeInventory.Destroy();
+        if (_setSizeInventory != null)
+        {
+            _setSizeInventory.gameObject.SetActive(false);
+            _setSizeInventory.EReaload -= Reload;
+            _setSizeInventory.Destroy();
+        }
     }
 
     public Inventory GetInventory()

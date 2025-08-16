@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 static public class StoregManager
 {
@@ -24,50 +23,5 @@ static public class StoregManager
         var inventory = new InventorySave().GetData(data);
 
         return inventory;
-    }
-}
-
-[System.Serializable]
-public struct InventorySave
-{
-    public MyVector2Int Size;
-
-    public SerializableDictionary serializableMapItem;
-
-    public InventorySave SetData(Inventory inventory)
-    {
-        Size = inventory.Size;
-        serializableMapItem = new(inventory.MapItems);
-        return this;
-    }
-
-    public Inventory GetData(InventorySave data)
-    {
-        this = data;
-        return new Inventory(Size, serializableMapItem.ToDictionary());
-    }
-
-}
-
-[System.Serializable]
-public class SerializableDictionary
-{
-    public List<MyVector2Int> keys;
-    public List<Item> values;
-
-    public SerializableDictionary(Dictionary<MyVector2Int, Item> dictionary)
-    {
-        keys = new List<MyVector2Int>(dictionary.Keys);
-        values = new List<Item>(dictionary.Values);
-    }
-
-    public Dictionary<MyVector2Int, Item> ToDictionary()
-    {
-        var dictionary = new Dictionary<MyVector2Int, Item>();
-        for (int i = 0; i < keys.Count; i++)
-        {
-            dictionary[keys[i]] = values[i];
-        }
-        return dictionary;
     }
 }
